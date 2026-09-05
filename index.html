@@ -31,6 +31,11 @@ h2{text-align:center;font-size:34px}
   background:#fff;
   padding:20px;
   box-sizing:border-box;
+  cursor:zoom-in;
+  transition:transform .28s ease;
+}
+@media (hover:hover){
+  .product-card img:hover{transform:scale(1.06)}
 }
 .product-info{padding:18px}
 .tag{color:#d7ad4b;font-size:11px;letter-spacing:2px}
@@ -46,6 +51,44 @@ h2{text-align:center;font-size:34px}
 
 .status{text-align:center;color:#bbb;padding:25px 10px;grid-column:1/-1}
 footer{text-align:center;padding:28px;color:#777}
+
+/* Zoom de imagen */
+.image-zoom{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.88);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:24px;
+}
+.image-zoom.open{display:flex}
+.image-zoom img{
+  max-width:min(92vw,1000px);
+  max-height:90vh;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 20px 60px rgba(0,0,0,.55);
+}
+.image-zoom button{
+  position:absolute;
+  top:16px;
+  right:18px;
+  width:46px;
+  height:46px;
+  border:0;
+  border-radius:50%;
+  background:#d7ad4b;
+  color:#111;
+  font-size:28px;
+  font-weight:900;
+  cursor:pointer;
+}
+
 @media(max-width:650px){
   .product-card img{
     height:280px;
@@ -79,6 +122,11 @@ footer{text-align:center;padding:28px;color:#777}
 </section>
 <footer>© 2026 Los Tigers Parfums y Más · Tigers Boutique</footer>
 
+<div class="image-zoom" id="image-zoom" aria-hidden="true">
+  <button id="image-zoom-close" type="button" aria-label="Cerrar">×</button>
+  <img id="image-zoom-img" alt="Vista ampliada del producto">
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL = 'https://nydlrezhitpqwimdzudq.supabase.co';
@@ -90,6 +138,9 @@ const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_
 const grid = document.getElementById('products-grid');
 const emptyMessage = document.getElementById('empty-message');
 const categoryInputs = [...document.querySelectorAll('input[name="cat"]')];
+const zoom = document.getElementById('image-zoom');
+const zoomImg = document.getElementById('image-zoom-img');
+const zoomClose = document.getElementById('image-zoom-close');
 
 function escapeHtml(value='') {
   return String(value)
@@ -111,16 +162,8 @@ function formatPrice(price, currency='EUR') {
 
 function imageUrl(path) {
   if (!path) return '';
-
-  if (/^https?:\/\//i.test(path)) {
-    return path;
-  }
-
-  const { data } = supabaseClient
-    .storage
-    .from(STORAGE_BUCKET)
-    .getPublicUrl(path);
-
+  if (/^https?:\/\//i.test(path)) return path;
+  const { data } = supabaseClient.storage.from(STORAGE_BUCKET).getPublicUrl(path);
   return data?.publicUrl || '';
 }
 
@@ -139,6 +182,29 @@ function updateEmptyState() {
   const visible = [...grid.querySelectorAll('.product-card')].filter(card => card.classList.contains(slug));
   emptyMessage.style.display = visible.length ? 'none' : 'block';
 }
+
+function openZoom(src, alt='Producto') {
+  zoomImg.src = src;
+  zoomImg.alt = alt;
+  zoom.classList.add('open');
+  zoom.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeZoom() {
+  zoom.classList.remove('open');
+  zoom.setAttribute('aria-hidden','true');
+  zoomImg.src = '';
+  document.body.style.overflow = '';
+}
+
+zoomClose.addEventListener('click', closeZoom);
+zoom.addEventListener('click', e => { if (e.target === zoom) closeZoom(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeZoom(); });
+grid.addEventListener('click', e => {
+  const img = e.target.closest('.product-card img');
+  if (img) openZoom(img.src, img.alt);
+});
 
 async function loadProducts() {
   grid.innerHTML = '<div class="status">Cargando productos…</div>';
@@ -176,7 +242,6 @@ async function loadProducts() {
       </article>`;
   }).join('');
 
-  // Si la categoría seleccionada no tiene productos, selecciona automáticamente la primera que sí tenga.
   const current = selectedSlug();
   if (!products.some(p => p.categories.slug === current)) {
     const firstSlug = products[0]?.categories?.slug;
