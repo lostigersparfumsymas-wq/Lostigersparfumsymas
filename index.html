@@ -1,277 +1,442 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Los Tigers Parfums y Más</title>
-<style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#090909;color:#f5f1e8}
-header{background:#0b0b0b;border-bottom:1px solid #332817;padding:18px;text-align:center;color:#d7ad4b;font-weight:900;letter-spacing:2px}
-.hero{padding:55px 20px;text-align:center;background:radial-gradient(circle,#3a2b11,#111 45%,#090909)}
-.hero h1{font-size:clamp(48px,10vw,90px);margin:10px 0}
-.hero p{color:#ccc}
-section{max-width:1150px;margin:auto;padding:50px 20px}
-h2{text-align:center;font-size:34px}
-.filter-input{position:absolute;opacity:0;pointer-events:none}
-.tabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:25px 0 35px}
-.tabs label{border:1px solid #5b4924;background:#151515;color:#eee;padding:12px 20px;border-radius:25px;font-weight:800;cursor:pointer;user-select:none}
-#cat-gorras:checked ~ .tabs label[for="cat-gorras"],
-#cat-perfumes:checked ~ .tabs label[for="cat-perfumes"],
-#cat-ropa:checked ~ .tabs label[for="cat-ropa"]{background:#d7ad4b;color:#111}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
-.product-card{background:#151515;border:1px solid #292929;border-radius:16px;overflow:hidden}
-.product-card img{
-  width:100%;
-  height:320px;
-  object-fit:contain;
-  object-position:center;
-  display:block;
-  background:#fff;
-  padding:20px;
-  box-sizing:border-box;
-  cursor:zoom-in;
-  transition:transform .28s ease;
-}
-@media (hover:hover){
-  .product-card img:hover{transform:scale(1.06)}
-}
-.product-info{padding:18px}
-.tag{color:#d7ad4b;font-size:11px;letter-spacing:2px}
-.product-info h3{margin:8px 0}
-.product-info a{display:block;text-align:center;background:#d7ad4b;color:#111;text-decoration:none;font-weight:900;padding:13px;border-radius:10px}
-.empty{display:none;text-align:center;color:#bbb;padding:40px;font-size:18px}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Catálogo de Los Tigers Parfums y Más: gorras, perfumes y ropa.">
+  <title>Los Tigers Parfums y Más</title>
 
-/* Filtro SIN JavaScript */
-#cat-gorras:checked ~ .grid .product-card:not(.gorras){display:none}
-#cat-perfumes:checked ~ .grid .product-card:not(.perfumes){display:none}
-#cat-ropa:checked ~ .grid .product-card{display:none}
-#cat-ropa:checked ~ .empty{display:block}
+  <style>
+    :root{
+      --bg:#090909;
+      --panel:#151515;
+      --panel-2:#0f0f0f;
+      --border:#292929;
+      --gold:#d7ad4b;
+      --gold-dark:#5b4924;
+      --text:#f5f1e8;
+      --muted:#bdbdbd;
+      --radius:16px;
+      --max-width:1180px;
+    }
 
-.status{text-align:center;color:#bbb;padding:25px 10px;grid-column:1/-1}
-footer{text-align:center;padding:28px;color:#777}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    body.modal-open{overflow:hidden}
 
-/* Zoom de imagen corregido */
-.image-zoom{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.92);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-  padding:20px;
-}
+    header{
+      background:#0b0b0b;
+      border-bottom:1px solid #332817;
+      padding:18px;
+      text-align:center;
+      color:var(--gold);
+      font-weight:900;
+      letter-spacing:2px;
+    }
 
-.image-zoom.open{
-  display:flex;
-}
+    .hero{
+      padding:52px 20px;
+      text-align:center;
+      background:radial-gradient(circle,#3a2b11,#111 45%,#090909);
+    }
+    .hero h1{
+      margin:10px 0;
+      font-size:clamp(42px,8vw,82px);
+      line-height:1;
+    }
+    .hero p{margin:14px auto 0;color:#ccc;max-width:650px}
 
-.image-zoom img{
-  display:block;
-  width:auto;
-  height:auto;
-  max-width:92vw;
-  max-height:90vh;
-  object-fit:contain;
-  object-position:center;
-  background:#fff;
-  padding:10px;
-  border-radius:14px;
-  box-shadow:0 20px 60px rgba(0,0,0,.65);
-  transform:none !important;
-}
+    main{max-width:var(--max-width);margin:auto;padding:44px 20px 64px}
+    h2{text-align:center;font-size:34px;margin:0 0 18px}
 
-.image-zoom button{
-  position:fixed;
-  top:18px;
-  right:18px;
-  z-index:10000;
-  width:48px;
-  height:48px;
-  border:0;
-  border-radius:50%;
-  background:#d7ad4b;
-  color:#111;
-  font-size:30px;
-  line-height:48px;
-  font-weight:900;
-  cursor:pointer;
-}
+    .filter-input{
+      position:absolute;
+      width:1px;
+      height:1px;
+      opacity:0;
+      pointer-events:none;
+    }
 
-@media(max-width:650px){
-  .image-zoom{
-    padding:12px;
-  }
+    .tabs{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin:24px 0 34px;
+    }
+    .tabs label{
+      border:1px solid var(--gold-dark);
+      background:var(--panel);
+      color:#eee;
+      padding:12px 22px;
+      border-radius:999px;
+      font-weight:800;
+      cursor:pointer;
+      user-select:none;
+      transition:transform .2s ease,background .2s ease,color .2s ease;
+    }
+    .tabs label:hover{transform:translateY(-1px)}
 
-  .image-zoom img{
-    max-width:96vw;
-    max-height:86vh;
-    padding:6px;
-    border-radius:10px;
-  }
+    #cat-gorras:checked ~ .tabs label[for="cat-gorras"],
+    #cat-perfumes:checked ~ .tabs label[for="cat-perfumes"],
+    #cat-ropa:checked ~ .tabs label[for="cat-ropa"]{
+      background:var(--gold);
+      color:#111;
+    }
 
-  .image-zoom button{
-    top:10px;
-    right:10px;
-  }
-}
-</style>
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+      gap:22px;
+      align-items:stretch;
+    }
+
+    .product-card{
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      overflow:hidden;
+      box-shadow:0 10px 24px rgba(0,0,0,.16);
+    }
+
+    .product-media{
+      position:relative;
+      width:100%;
+      aspect-ratio:1/1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fff;
+      overflow:hidden;
+    }
+
+    .product-media img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:contain;
+      object-position:center;
+      background:#fff;
+      padding:16px;
+      cursor:zoom-in;
+      transition:transform .25s ease;
+    }
+
+    @media (hover:hover){
+      .product-media img:hover{transform:scale(1.04)}
+    }
+
+    .product-info{
+      display:flex;
+      flex:1;
+      flex-direction:column;
+      padding:18px;
+    }
+    .tag{
+      color:var(--gold);
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:2px;
+    }
+    .product-info h3{
+      margin:8px 0 10px;
+      font-size:20px;
+      line-height:1.2;
+    }
+    .price{margin:0 0 14px}
+    .availability{margin:0 0 14px;color:var(--muted)}
+    .product-info a{
+      display:block;
+      margin-top:auto;
+      text-align:center;
+      background:var(--gold);
+      color:#111;
+      text-decoration:none;
+      font-weight:900;
+      padding:14px 12px;
+      border-radius:11px;
+    }
+    .product-info a:hover{filter:brightness(1.05)}
+
+    .status,.empty{
+      text-align:center;
+      color:var(--muted);
+      padding:40px 10px;
+      grid-column:1/-1;
+    }
+    .empty{display:none}
+
+    /* Filtro de categorías */
+    #cat-gorras:checked ~ .grid .product-card:not(.gorras){display:none}
+    #cat-perfumes:checked ~ .grid .product-card:not(.perfumes){display:none}
+    #cat-ropa:checked ~ .grid .product-card:not(.ropa){display:none}
+
+    footer{
+      border-top:1px solid #1c1c1c;
+      text-align:center;
+      padding:28px 18px;
+      color:#777;
+    }
+
+    /* Zoom / visor de imagen */
+    .image-zoom{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      background:rgba(0,0,0,.93);
+      backdrop-filter:blur(3px);
+    }
+    .image-zoom.open{display:flex}
+    .image-zoom__frame{
+      width:min(94vw,1100px);
+      height:min(90vh,900px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .image-zoom img{
+      display:block;
+      width:auto;
+      height:auto;
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+      background:#fff;
+      border-radius:14px;
+      box-shadow:0 24px 70px rgba(0,0,0,.65);
+    }
+    .image-zoom button{
+      position:fixed;
+      top:16px;
+      right:16px;
+      z-index:10000;
+      width:48px;
+      height:48px;
+      border:0;
+      border-radius:50%;
+      background:var(--gold);
+      color:#111;
+      font-size:30px;
+      line-height:1;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    @media(max-width:650px){
+      header{font-size:14px;padding:14px}
+      .hero{padding:40px 16px}
+      .hero h1{font-size:clamp(38px,13vw,60px)}
+      main{padding:34px 14px 50px}
+      h2{font-size:30px}
+      .grid{grid-template-columns:1fr;gap:18px}
+      .product-media{aspect-ratio:1/1}
+      .product-media img{padding:14px}
+      .product-info h3{font-size:22px}
+      .image-zoom{padding:10px}
+      .image-zoom__frame{width:96vw;height:86vh}
+      .image-zoom button{top:10px;right:10px}
+    }
+  </style>
 </head>
+
 <body>
-<header>LOS TIGERS PARFUMS Y MÁS</header>
-<div class="hero">
-<h1>Los Tigers Parfums y Más</h1>
-<p>Elige una categoría para ver solo sus productos.</p>
-</div>
-<section>
-<h2>Categorías</h2>
-<input checked="" class="filter-input" id="cat-gorras" name="cat" type="radio"/>
-<input class="filter-input" id="cat-perfumes" name="cat" type="radio"/>
-<input class="filter-input" id="cat-ropa" name="cat" type="radio"/>
-<div class="tabs">
-<label for="cat-gorras">Gorras</label>
-<label for="cat-perfumes">Perfumes</label>
-<label for="cat-ropa">Ropa</label>
-</div>
-<div class="grid" id="products-grid"></div>
-<div class="empty" id="empty-message">No hay productos disponibles en esta categoría.</div>
-</section>
-<footer>© 2026 Los Tigers Parfums y Más · Tigers Boutique</footer>
+  <header>LOS TIGERS PARFUMS Y MÁS</header>
 
-<div class="image-zoom" id="image-zoom" aria-hidden="true">
-  <button id="image-zoom-close" type="button" aria-label="Cerrar">×</button>
-  <img id="image-zoom-img" alt="Vista ampliada del producto">
-</div>
+  <section class="hero" aria-labelledby="site-title">
+    <h1 id="site-title">Los Tigers Parfums y Más</h1>
+    <p>Elige una categoría para ver los productos disponibles.</p>
+  </section>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const SUPABASE_URL = 'https://nydlrezhitpqwimdzudq.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_5yVVknnHCj1tdzBmA1Fyeg_FBImcFuf';
-const STORAGE_BUCKET = 'productos';
-const WHATSAPP_NUMBER = '34614335316';
+  <main>
+    <h2>Categorías</h2>
 
-const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-const grid = document.getElementById('products-grid');
-const emptyMessage = document.getElementById('empty-message');
-const categoryInputs = [...document.querySelectorAll('input[name="cat"]')];
-const zoom = document.getElementById('image-zoom');
-const zoomImg = document.getElementById('image-zoom-img');
-const zoomClose = document.getElementById('image-zoom-close');
+    <input checked class="filter-input" id="cat-gorras" name="cat" type="radio">
+    <input class="filter-input" id="cat-perfumes" name="cat" type="radio">
+    <input class="filter-input" id="cat-ropa" name="cat" type="radio">
 
-function escapeHtml(value='') {
-  return String(value)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#039;');
-}
+    <nav class="tabs" aria-label="Categorías del catálogo">
+      <label for="cat-gorras">Gorras</label>
+      <label for="cat-perfumes">Perfumes</label>
+      <label for="cat-ropa">Ropa</label>
+    </nav>
 
-function formatPrice(price, currency='EUR') {
-  if (price === null || price === undefined || price === '') return 'Consultar precio';
-  try {
-    return new Intl.NumberFormat('es-ES', { style: 'currency', currency }).format(Number(price));
-  } catch {
-    return `${price} ${currency || ''}`.trim();
-  }
-}
+    <section class="grid" id="products-grid" aria-live="polite"></section>
+    <div class="empty" id="empty-message">No hay productos disponibles en esta categoría.</div>
+  </main>
 
-function imageUrl(path) {
-  if (!path) return '';
-  if (/^https?:\/\//i.test(path)) return path;
-  const { data } = supabaseClient.storage.from(STORAGE_BUCKET).getPublicUrl(path);
-  return data?.publicUrl || '';
-}
+  <footer>© 2026 Los Tigers Parfums y Más · Tigers Boutique</footer>
 
-function whatsappUrl(product) {
-  if (product.whatsapp_url) return product.whatsapp_url;
-  const text = `Hola Tigers Boutique, quiero información sobre ${product.name}.`;
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
-}
+  <div class="image-zoom" id="image-zoom" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Vista ampliada del producto">
+    <button id="image-zoom-close" type="button" aria-label="Cerrar imagen ampliada">×</button>
+    <div class="image-zoom__frame">
+      <img id="image-zoom-img" alt="Vista ampliada del producto">
+    </div>
+  </div>
 
-function selectedSlug() {
-  return categoryInputs.find(i => i.checked)?.id.replace('cat-', '') || 'gorras';
-}
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    /* Configuración central */
+    const CONFIG = {
+      supabaseUrl: 'https://nydlrezhitpqwimdzudq.supabase.co',
+      supabasePublishableKey: 'sb_publishable_5yVVknnHCj1tdzBmA1Fyeg_FBImcFuf',
+      storageBucket: 'productos',
+      whatsappNumber: '34614335316'
+    };
 
-function updateEmptyState() {
-  const slug = selectedSlug();
-  const visible = [...grid.querySelectorAll('.product-card')].filter(card => card.classList.contains(slug));
-  emptyMessage.style.display = visible.length ? 'none' : 'block';
-}
+    const supabaseClient = supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabasePublishableKey);
+    const grid = document.getElementById('products-grid');
+    const emptyMessage = document.getElementById('empty-message');
+    const categoryInputs = [...document.querySelectorAll('input[name="cat"]')];
+    const zoom = document.getElementById('image-zoom');
+    const zoomImg = document.getElementById('image-zoom-img');
+    const zoomClose = document.getElementById('image-zoom-close');
 
-function openZoom(src, alt='Producto') {
-  zoomImg.src = src;
-  zoomImg.alt = alt;
-  zoom.classList.add('open');
-  zoom.setAttribute('aria-hidden','false');
-  document.body.style.overflow = 'hidden';
-}
+    function escapeHtml(value = '') {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
 
-function closeZoom() {
-  zoom.classList.remove('open');
-  zoom.setAttribute('aria-hidden','true');
-  zoomImg.src = '';
-  document.body.style.overflow = '';
-}
+    function formatPrice(price, currency = 'EUR') {
+      if (price === null || price === undefined || price === '') return 'Consultar precio';
+      try {
+        return new Intl.NumberFormat('es-ES', {
+          style: 'currency',
+          currency: currency || 'EUR'
+        }).format(Number(price));
+      } catch {
+        return `${price} ${currency || ''}`.trim();
+      }
+    }
 
-zoomClose.addEventListener('click', closeZoom);
-zoom.addEventListener('click', e => { if (e.target === zoom) closeZoom(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeZoom(); });
-grid.addEventListener('click', e => {
-  const img = e.target.closest('.product-card img');
-  if (img) openZoom(img.src, img.alt);
-});
+    function imageUrl(path) {
+      if (!path) return '';
+      if (/^https?:\/\//i.test(path)) return path;
+      const { data } = supabaseClient.storage.from(CONFIG.storageBucket).getPublicUrl(path);
+      return data?.publicUrl || '';
+    }
 
-async function loadProducts() {
-  grid.innerHTML = '<div class="status">Cargando productos…</div>';
-  emptyMessage.style.display = 'none';
+    function whatsappUrl(product) {
+      if (product.whatsapp_url) return product.whatsapp_url;
+      const text = `Hola Tigers Boutique, quiero información sobre ${product.name}.`;
+      return `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
+    }
 
-  const { data, error } = await supabaseClient
-    .from('products')
-    .select('id,name,price,currency,image_path,image_alt,is_available,is_active,sort_order,whatsapp_url,categories(name,slug)')
-    .eq('is_active', true)
-    .order('sort_order', { ascending: true })
-    .order('name', { ascending: true });
+    function selectedSlug() {
+      return categoryInputs.find(input => input.checked)?.id.replace('cat-', '') || 'gorras';
+    }
 
-  if (error) {
-    console.error(error);
-    grid.innerHTML = '<div class="status">No se pudo cargar el catálogo. Inténtalo de nuevo más tarde.</div>';
-    return;
-  }
+    function updateEmptyState() {
+      const slug = selectedSlug();
+      const visible = [...grid.querySelectorAll('.product-card')]
+        .filter(card => card.classList.contains(slug));
+      emptyMessage.style.display = visible.length ? 'none' : 'block';
+    }
 
-  const products = (data || []).filter(p => p.categories?.slug);
-  grid.innerHTML = products.map(product => {
-    const slug = escapeHtml(product.categories.slug);
-    const categoryName = escapeHtml(product.categories.name || slug).toUpperCase();
-    const img = imageUrl(product.image_path);
-    const availability = product.is_available ? '' : '<p style="color:#bbb">Agotado</p>';
-    return `
-      <article class="product-card ${slug}">
-        ${img ? `<img src="${img}" alt="${escapeHtml(product.image_alt || product.name)}" loading="lazy">` : ''}
-        <div class="product-info">
-          <span class="tag">${categoryName}</span>
-          <h3>${escapeHtml(product.name)}</h3>
-          <p>${escapeHtml(formatPrice(product.price, product.currency))}</p>
-          ${availability}
-          <a href="${escapeHtml(whatsappUrl(product))}" rel="noopener" target="_blank">PEDIR POR WHATSAPP</a>
-        </div>
-      </article>`;
-  }).join('');
+    function openZoom(src, alt = 'Producto') {
+      if (!src) return;
+      zoomImg.src = src;
+      zoomImg.alt = alt;
+      zoom.classList.add('open');
+      zoom.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+      zoomClose.focus();
+    }
 
-  const current = selectedSlug();
-  if (!products.some(p => p.categories.slug === current)) {
-    const firstSlug = products[0]?.categories?.slug;
-    const firstInput = firstSlug && document.getElementById(`cat-${firstSlug}`);
-    if (firstInput) firstInput.checked = true;
-  }
-  updateEmptyState();
-}
+    function closeZoom() {
+      zoom.classList.remove('open');
+      zoom.setAttribute('aria-hidden', 'true');
+      zoomImg.src = '';
+      document.body.classList.remove('modal-open');
+    }
 
-categoryInputs.forEach(input => input.addEventListener('change', updateEmptyState));
-loadProducts();
-</script>
+    function productCard(product) {
+      const slug = escapeHtml(product.categories.slug);
+      const categoryName = escapeHtml(product.categories.name || slug).toUpperCase();
+      const name = escapeHtml(product.name);
+      const img = imageUrl(product.image_path);
+      const alt = escapeHtml(product.image_alt || product.name);
+      const price = escapeHtml(formatPrice(product.price, product.currency));
+      const orderUrl = escapeHtml(whatsappUrl(product));
+      const availability = product.is_available
+        ? ''
+        : '<p class="availability">Agotado</p>';
 
+      return `
+        <article class="product-card ${slug}" data-product-id="${product.id}">
+          <div class="product-media">
+            ${img ? `<img src="${img}" alt="${alt}" loading="lazy" decoding="async">` : '<span class="status">Sin imagen</span>'}
+          </div>
+          <div class="product-info">
+            <span class="tag">${categoryName}</span>
+            <h3>${name}</h3>
+            <p class="price">${price}</p>
+            ${availability}
+            <a href="${orderUrl}" rel="noopener" target="_blank">PEDIR POR WHATSAPP</a>
+          </div>
+        </article>`;
+    }
+
+    async function loadProducts() {
+      grid.innerHTML = '<div class="status">Cargando productos…</div>';
+      emptyMessage.style.display = 'none';
+
+      const { data, error } = await supabaseClient
+        .from('products')
+        .select('id,name,price,currency,image_path,image_alt,is_available,is_active,sort_order,whatsapp_url,categories(name,slug)')
+        .eq('is_active', true)
+        .order('sort_order', { ascending: true })
+        .order('name', { ascending: true });
+
+      if (error) {
+        console.error('Error cargando catálogo:', error);
+        grid.innerHTML = '<div class="status">No se pudo cargar el catálogo. Inténtalo de nuevo más tarde.</div>';
+        return;
+      }
+
+      const products = (data || []).filter(product => product.categories?.slug);
+      grid.innerHTML = products.map(productCard).join('');
+
+      const current = selectedSlug();
+      if (!products.some(product => product.categories.slug === current)) {
+        const firstSlug = products[0]?.categories?.slug;
+        const firstInput = firstSlug && document.getElementById(`cat-${firstSlug}`);
+        if (firstInput) firstInput.checked = true;
+      }
+
+      updateEmptyState();
+    }
+
+    zoomClose.addEventListener('click', closeZoom);
+    zoom.addEventListener('click', event => {
+      if (event.target === zoom) closeZoom();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && zoom.classList.contains('open')) closeZoom();
+    });
+    grid.addEventListener('click', event => {
+      const img = event.target.closest('.product-media img');
+      if (img) openZoom(img.src, img.alt);
+    });
+    categoryInputs.forEach(input => input.addEventListener('change', updateEmptyState));
+
+    loadProducts();
+  </script>
 </body>
 </html>
