@@ -1,61 +1,228 @@
+---
+---
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Catálogo de Los Tigers Parfums y Más">
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Catálogo de Los Tigers Parfums y Más: gorras, perfumes, ropa, zapatillas y accesorios.">
+  <meta name="theme-color" content="#090909">
   <title>Los Tigers Parfums y Más</title>
   <style>
-    :root{--bg:#090909;--panel:#151515;--border:#292929;--gold:#d7ad4b;--gold-dark:#5b4924;--text:#f5f1e8;--muted:#bdbdbd;--radius:16px;--max-width:1180px}
-    *{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}body.modal-open{overflow:hidden}
-    header{background:#0b0b0b;border-bottom:1px solid #332817;padding:12px 18px;color:var(--gold)}
-    .brand{max-width:var(--max-width);margin:auto;display:flex;align-items:center;justify-content:center;gap:14px}.site-logo{width:96px;height:96px;object-fit:contain;display:block}.brand-name{font-weight:900;letter-spacing:2px}
-    .hero{padding:52px 20px;text-align:center;background:radial-gradient(circle,#3a2b11,#111 45%,#090909)}.hero h1{margin:10px 0;font-size:clamp(42px,8vw,82px);line-height:1}.hero p{color:#ccc}
-    main{max-width:var(--max-width);margin:auto;padding:44px 20px 64px}h2{text-align:center;font-size:34px}
-    .tabs,.subtabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}.tabs{margin:24px 0 12px}.subtabs{margin:0 0 18px;padding-top:8px}
-    .tabs button,.subtabs button{border:1px solid var(--gold-dark);background:var(--panel);color:#eee;padding:12px 22px;border-radius:999px;font:inherit;font-weight:800;cursor:pointer}.tabs button.active,.subtabs button.active{background:var(--gold);border-color:var(--gold);color:#111}.subtabs button{padding:10px 20px;background:#101010}
-    .subtabs:before{flex-basis:100%;text-align:center;color:var(--muted);font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase}.clothes-subtabs:before{content:"Ropa"}.shoes-subtabs:before{content:"Zapatillas"}.accessories-subtabs:before{content:"Accesorios"}[hidden]{display:none!important}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px}.product-card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}.product-media{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:#fff;overflow:hidden}.product-media img{width:100%;height:100%;object-fit:contain;background:#fff;padding:16px;cursor:zoom-in}.product-info{display:flex;flex:1;flex-direction:column;padding:18px}.tag{color:var(--gold);font-size:11px;font-weight:800;letter-spacing:2px}.product-info h3{margin:8px 0 10px;font-size:20px}.price{margin:0 0 14px}.product-info a{display:block;margin-top:auto;text-align:center;background:var(--gold);color:#111;text-decoration:none;font-weight:900;padding:14px;border-radius:11px}.status,.empty{text-align:center;color:var(--muted);padding:40px 10px;grid-column:1/-1}.empty{display:none}
-    footer{text-align:center;padding:28px;color:#777;border-top:1px solid #1c1c1c}.image-zoom{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.93);padding:20px}.image-zoom.open{display:flex}.image-zoom__frame{width:min(94vw,1100px);height:min(90vh,900px);display:flex;align-items:center;justify-content:center}.image-zoom img{max-width:100%;max-height:100%;object-fit:contain;background:#fff;border-radius:14px}.image-zoom button{position:fixed;top:16px;right:16px;width:48px;height:48px;border:0;border-radius:50%;background:var(--gold);font-size:30px;font-weight:900;cursor:pointer}
-    @media(max-width:650px){.site-logo{width:72px;height:72px}.brand-name{font-size:13px}.hero{padding:40px 16px}.hero h1{font-size:clamp(38px,13vw,60px)}main{padding:34px 14px 50px}.tabs button{padding:11px 16px}.grid{grid-template-columns:1fr}}
+    :root{--bg:#080808;--panel:#141414;--panel2:#101010;--border:#342a18;--gold:#e0b54f;--gold2:#9d7626;--text:#f7f3e9;--muted:#b8b8b8;--max:1180px;--radius:18px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%}
+    button,a{font:inherit}
+    button{-webkit-tap-highlight-color:transparent}
+    .site-header{border-bottom:1px solid var(--border);background:#0b0b0b}
+    .brand{max-width:var(--max);margin:auto;padding:12px 18px;display:flex;align-items:center;justify-content:center;gap:14px}
+    .brand-mark{width:84px;height:84px;flex:0 0 auto;filter:drop-shadow(0 4px 12px rgba(224,181,79,.18))}
+    .brand-name{color:var(--gold);font-weight:900;letter-spacing:3px;font-size:18px;line-height:1.25}
+    .hero{padding:48px 20px 54px;text-align:center;background:radial-gradient(circle at 50% 38%,#3c2b0e 0,#17120a 27%,#0d0d0d 62%,#080808 100%)}
+    .hero h1{margin:0;font-size:clamp(42px,8vw,82px);line-height:1.04;letter-spacing:-1.5px}
+    .hero p{max-width:680px;margin:18px auto 0;color:#d0d0d0;font-size:18px;line-height:1.5}
+    main{max-width:var(--max);margin:auto;padding:42px 18px 64px}
+    h2{text-align:center;font-size:clamp(30px,5vw,42px);margin:0 0 24px}
+    .tabs,.subtabs{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+    .tabs{margin-bottom:14px}
+    .subtabs{margin:0 auto 24px;padding:14px 12px;border:1px solid #242018;border-radius:16px;background:#0d0d0d;max-width:720px}
+    .tabs button,.subtabs button{appearance:none;border:1px solid #69501e;background:var(--panel);color:#eee;padding:12px 22px;border-radius:999px;font-weight:800;cursor:pointer;transition:.18s ease}
+    .tabs button:hover,.subtabs button:hover{border-color:var(--gold);transform:translateY(-1px)}
+    .tabs button.active,.subtabs button.active{background:var(--gold);border-color:var(--gold);color:#111}
+    .subtabs-label{flex-basis:100%;text-align:center;color:var(--muted);font-size:12px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:2px}
+    [hidden]{display:none!important}
+    .catalog-status{text-align:center;color:var(--muted);padding:34px 10px;grid-column:1/-1}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:22px;align-items:stretch}
+    .product-card{display:flex;flex-direction:column;min-width:0;background:var(--panel);border:1px solid #292929;border-radius:var(--radius);overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.18)}
+    .product-media{position:relative;aspect-ratio:1/1;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .product-media img{display:block;width:100%;height:100%;object-fit:contain;padding:14px;background:#fff;cursor:zoom-in}
+    .image-fallback{display:none;position:absolute;inset:0;align-items:center;justify-content:center;padding:22px;text-align:center;background:#f1f1f1;color:#555;font-weight:700}
+    .product-info{padding:17px;display:flex;flex-direction:column;flex:1}
+    .tag{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:1.7px}
+    .product-info h3{font-size:20px;line-height:1.25;margin:8px 0 10px;overflow-wrap:anywhere}
+    .price{margin:0 0 16px;color:#ddd}
+    .product-info a{display:block;margin-top:auto;text-align:center;text-decoration:none;background:var(--gold);color:#111;font-weight:900;padding:13px 12px;border-radius:11px}
+    .product-info a:active{transform:scale(.99)}
+    .empty{display:none;text-align:center;color:var(--muted);padding:36px 12px;border:1px dashed #343434;border-radius:16px;margin-top:8px}
+    footer{border-top:1px solid #1d1d1d;text-align:center;color:#777;padding:28px 18px}
+    .zoom{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.94)}
+    .zoom.open{display:flex}
+    .zoom img{max-width:94vw;max-height:88vh;object-fit:contain;background:#fff;border-radius:14px}
+    .zoom button{position:fixed;top:14px;right:14px;width:48px;height:48px;border:0;border-radius:50%;background:var(--gold);color:#111;font-size:30px;font-weight:900;cursor:pointer}
+    @media(max-width:680px){
+      .brand{justify-content:flex-start;padding:10px 14px}.brand-mark{width:70px;height:70px}.brand-name{font-size:14px;letter-spacing:2px}
+      .hero{padding:40px 16px 46px}.hero h1{font-size:clamp(40px,13vw,60px)}.hero p{font-size:16px}
+      main{padding:34px 14px 50px}.tabs button{padding:11px 16px}.subtabs button{padding:10px 18px}.grid{grid-template-columns:1fr;gap:18px}
+      .product-info h3{font-size:22px}
+    }
   </style>
 </head>
 <body>
-  <header><div class="brand"><img class="site-logo" src="logo-los-tigers.webp?v=3" alt="Logo de Los Tigers Parfums y Más"><span class="brand-name">LOS TIGERS PARFUMS Y MÁS</span></div></header>
-  <section class="hero"><h1>Los Tigers Parfums y Más</h1><p>Elige una categoría para ver los productos disponibles.</p></section>
+  <header class="site-header">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 120 120" role="img" aria-label="Los Tigers">
+        <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#8b5d0a"/><stop offset=".45" stop-color="#ffe28a"/><stop offset="1" stop-color="#c78a15"/></linearGradient></defs>
+        <circle cx="60" cy="60" r="53" fill="#050505" stroke="url(#g)" stroke-width="4"/>
+        <path d="M38 30l10 7 12-15 12 15 10-7-5 20H43z" fill="url(#g)"/>
+        <rect x="34" y="47" width="52" height="46" rx="10" fill="#090909" stroke="url(#g)" stroke-width="3"/>
+        <text x="60" y="78" text-anchor="middle" font-size="31" font-family="Georgia,serif" font-weight="700" fill="url(#g)">LT</text>
+      </svg>
+      <div class="brand-name">LOS TIGERS PARFUMS Y MÁS</div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Los Tigers<br>Parfums y Más</h1>
+    <p>Explora el catálogo por categorías y pide información directamente por WhatsApp.</p>
+  </section>
+
   <main>
     <h2>Categorías</h2>
-    <nav class="tabs" aria-label="Categorías"><button type="button" class="active" data-category="gorras">Gorras</button><button type="button" data-category="perfumes">Perfumes</button><button type="button" data-category="menu-ropa">Ropa</button><button type="button" data-category="zapatillas">Zapatillas</button><button type="button" data-category="menu-accesorios">Accesorios</button></nav>
-    <nav class="subtabs clothes-subtabs" id="clothes-subcategories" hidden><button type="button" data-category="pantalones">Pantalones</button><button type="button" data-category="tshirt">T-Shirt</button></nav>
-    <nav class="subtabs shoes-subtabs" id="shoes-subcategories" hidden><button type="button" data-category="zapatillas-hombre">Hombre</button><button type="button" data-category="zapatillas-mujer">Mujer</button></nav>
-    <nav class="subtabs accessories-subtabs" id="accessories-subcategories" hidden><button type="button" data-category="bolsos">Bolsos</button><button type="button" data-category="accesorios">Accesorios</button></nav>
-    <section class="grid" id="products-grid" aria-live="polite"><div class="status">Preparando catálogo…</div></section>
-    <div class="empty" id="empty-message">No hay productos disponibles en esta categoría.</div>
+    <nav class="tabs" aria-label="Categorías principales">
+      <button type="button" class="active" data-category="gorras">Gorras</button>
+      <button type="button" data-category="perfumes">Perfumes</button>
+      <button type="button" data-category="menu-ropa">Ropa ▾</button>
+      <button type="button" data-category="menu-zapatillas">Zapatillas ▾</button>
+      <button type="button" data-category="menu-accesorios">Accesorios ▾</button>
+    </nav>
+
+    <nav class="subtabs" id="sub-ropa" aria-label="Subcategorías de ropa" hidden>
+      <span class="subtabs-label">Ropa</span>
+      <button type="button" data-category="pantalones">Pantalones</button>
+      <button type="button" data-category="tshirt">T-Shirt</button>
+    </nav>
+
+    <nav class="subtabs" id="sub-zapatillas" aria-label="Subcategorías de zapatillas" hidden>
+      <span class="subtabs-label">Zapatillas</span>
+      <button type="button" data-category="zapatillas-hombre">Hombre</button>
+      <button type="button" data-category="zapatillas-mujer">Mujer</button>
+    </nav>
+
+    <nav class="subtabs" id="sub-accesorios" aria-label="Subcategorías de accesorios" hidden>
+      <span class="subtabs-label">Accesorios</span>
+      <button type="button" data-category="bolsos">Bolsos</button>
+      <button type="button" data-category="accesorios">Accesorios</button>
+    </nav>
+
+    <section class="grid" id="products-grid" aria-live="polite">
+      <div class="catalog-status">Cargando catálogo…</div>
+    </section>
+    <div class="empty" id="empty-message">Todavía no hay productos disponibles en esta categoría.</div>
+    <noscript><div class="catalog-status">Para cambiar de categoría necesitas JavaScript activado.</div></noscript>
   </main>
+
   <footer>© 2026 Los Tigers Parfums y Más · Tigers Boutique</footer>
-  <div class="image-zoom" id="image-zoom" aria-hidden="true"><button type="button" id="image-zoom-close" aria-label="Cerrar">×</button><div class="image-zoom__frame"><img id="image-zoom-img" alt="Vista ampliada"></div></div>
-  <script src="catalog-data.js?v=20260908-1"></script>
+
+  <div class="zoom" id="zoom" aria-hidden="true" role="dialog" aria-label="Imagen ampliada">
+    <button type="button" id="zoom-close" aria-label="Cerrar">×</button>
+    <img id="zoom-img" alt="Vista ampliada del producto">
+  </div>
+
   <script>
-    const STORAGE_BASE='https://nydlrezhitpqwimdzudq.supabase.co/storage/v1/object/public/productos/';
-    const WHATSAPP='34614335316';
-    const grid=document.getElementById('products-grid'),empty=document.getElementById('empty-message'),top=[...document.querySelectorAll('.tabs button')],clothes=[...document.querySelectorAll('.clothes-subtabs button')],shoes=[...document.querySelectorAll('.shoes-subtabs button')],accessories=[...document.querySelectorAll('.accessories-subtabs button')],clothesSub=document.getElementById('clothes-subcategories'),shoesSub=document.getElementById('shoes-subcategories'),accessoriesSub=document.getElementById('accessories-subcategories'),zoom=document.getElementById('image-zoom'),zoomImg=document.getElementById('image-zoom-img');
-    let selected='gorras';
-    function esc(v=''){return String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
-    function imgUrl(path){return path?STORAGE_BASE+String(path).split('/').map(encodeURIComponent).join('/'):''}
-    function wa(name){return'https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent('Hola Tigers Boutique, quiero información sobre '+name+'.')}
-    function nav(){const r=['pantalones','tshirt'].includes(selected),s=selected.indexOf('zapatillas-')===0,a=['bolsos','accesorios'].includes(selected);top.forEach(b=>{const x=b.dataset.category;b.classList.toggle('active',x==='menu-ropa'?r:x==='zapatillas'?s:x==='menu-accesorios'?a:x===selected)});[...clothes,...shoes,...accessories].forEach(b=>b.classList.toggle('active',b.dataset.category===selected));clothesSub.hidden=!r;shoesSub.hidden=!s;accessoriesSub.hidden=!a}
-    function filter(){let n=0;grid.querySelectorAll('.product-card').forEach(c=>{const show=c.dataset.category===selected;c.style.display=show?'':'none';if(show)n++});empty.style.display=n?'none':'block';nav()}
-    function select(c){selected=c==='menu-ropa'?'pantalones':c==='zapatillas'?'zapatillas-hombre':c==='menu-accesorios'?'bolsos':c;filter()}
-    function card(row){const name=row[0],path=row[1],alt=row[2]||name,slug=row[3],cat=row[4]||slug,im=imgUrl(path);return'<article class="product-card" data-category="'+esc(slug)+'"><div class="product-media">'+(im?'<img src="'+im+'" alt="'+esc(alt)+'" loading="lazy">':'<span class="status">Sin imagen</span>')+'</div><div class="product-info"><span class="tag">'+esc(cat).toUpperCase()+'</span><h3>'+esc(name)+'</h3><p class="price">Consultar precio</p><a href="'+esc(wa(name))+'" target="_blank" rel="noopener">PEDIR POR WHATSAPP</a></div></article>'}
-    function renderCatalog(){const data=window.CATALOG_PRODUCTS||[];if(!data.length){grid.innerHTML='<div class="status">Catálogo temporalmente no disponible.</div>';return}grid.innerHTML=data.map(card).join('');filter()}
-    [...top,...clothes,...shoes,...accessories].forEach(b=>b.addEventListener('click',()=>select(b.dataset.category)));
-    grid.addEventListener('click',e=>{const i=e.target.closest('.product-media img');if(i){zoomImg.src=i.src;zoomImg.alt=i.alt;zoom.classList.add('open');zoom.setAttribute('aria-hidden','false');document.body.classList.add('modal-open')}});
-    function closeZoom(){zoom.classList.remove('open');zoom.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')}
-    document.getElementById('image-zoom-close').onclick=closeZoom;zoom.addEventListener('click',e=>{if(e.target===zoom)closeZoom()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeZoom()});
-    renderCatalog();
+  {% include_relative catalog-data.js %}
+  </script>
+  <script>
+  (function(){
+    'use strict';
+    var STORAGE='https://nydlrezhitpqwimdzudq.supabase.co/storage/v1/object/public/productos/';
+    var WHATSAPP='34614335316';
+    var grid=document.getElementById('products-grid');
+    var empty=document.getElementById('empty-message');
+    var topButtons=[].slice.call(document.querySelectorAll('.tabs button[data-category]'));
+    var subButtons=[].slice.call(document.querySelectorAll('.subtabs button[data-category]'));
+    var subRopa=document.getElementById('sub-ropa');
+    var subZapatillas=document.getElementById('sub-zapatillas');
+    var subAccesorios=document.getElementById('sub-accesorios');
+    var zoom=document.getElementById('zoom');
+    var zoomImg=document.getElementById('zoom-img');
+    var selected='gorras';
+
+    function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
+    function imageUrl(path){return path?STORAGE+String(path).split('/').map(encodeURIComponent).join('/'):'';}
+    function whatsapp(name){return 'https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent('Hola Tigers Boutique, quiero información sobre '+name+'.');}
+
+    function card(row){
+      var name=row[0],path=row[1],alt=row[2]||name,slug=row[3],cat=row[4]||slug,img=imageUrl(path);
+      return '<article class="product-card" data-category="'+esc(slug)+'">'+
+        '<div class="product-media">'+
+          (img?'<img src="'+img+'" alt="'+esc(alt)+'" loading="lazy" decoding="async" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';">':'')+
+          '<div class="image-fallback">Imagen no disponible</div>'+
+        '</div>'+
+        '<div class="product-info"><span class="tag">'+esc(cat).toUpperCase()+'</span><h3>'+esc(name)+'</h3><p class="price">Consultar precio</p><a href="'+esc(whatsapp(name))+'" target="_blank" rel="noopener">PEDIR POR WHATSAPP</a></div></article>';
+    }
+
+    function menuFor(category){
+      if(category==='menu-ropa') return 'pantalones';
+      if(category==='menu-zapatillas') return 'zapatillas-hombre';
+      if(category==='menu-accesorios') return 'bolsos';
+      return category;
+    }
+
+    function updateNav(){
+      var ropa=selected==='pantalones'||selected==='tshirt';
+      var zap=selected.indexOf('zapatillas-')===0;
+      var acc=selected==='bolsos'||selected==='accesorios';
+      var i,b,c,active;
+      for(i=0;i<topButtons.length;i++){
+        b=topButtons[i]; c=b.getAttribute('data-category');
+        active=(c==='menu-ropa'&&ropa)||(c==='menu-zapatillas'&&zap)||(c==='menu-accesorios'&&acc)||c===selected;
+        if(active)b.classList.add('active');else b.classList.remove('active');
+      }
+      for(i=0;i<subButtons.length;i++){
+        b=subButtons[i];
+        if(b.getAttribute('data-category')===selected)b.classList.add('active');else b.classList.remove('active');
+      }
+      subRopa.hidden=!ropa;
+      subZapatillas.hidden=!zap;
+      subAccesorios.hidden=!acc;
+    }
+
+    function filter(){
+      var cards=grid.getElementsByClassName('product-card');
+      var visible=0,i,show;
+      for(i=0;i<cards.length;i++){
+        show=cards[i].getAttribute('data-category')===selected;
+        cards[i].style.display=show?'flex':'none';
+        if(show)visible++;
+      }
+      empty.style.display=visible?'none':'block';
+      updateNav();
+    }
+
+    function selectCategory(category){selected=menuFor(category);filter();}
+
+    function render(){
+      try{
+        var data=window.CATALOG_PRODUCTS||[];
+        if(!data.length){grid.innerHTML='<div class="catalog-status">El catálogo está temporalmente vacío.</div>';return;}
+        var html='',i;
+        for(i=0;i<data.length;i++)html+=card(data[i]);
+        grid.innerHTML=html;
+        filter();
+      }catch(e){
+        grid.innerHTML='<div class="catalog-status">No se pudo preparar el catálogo. Recarga la página.</div>';
+      }
+    }
+
+    function bindButton(btn){btn.addEventListener('click',function(){selectCategory(btn.getAttribute('data-category'));});}
+    var i;
+    for(i=0;i<topButtons.length;i++)bindButton(topButtons[i]);
+    for(i=0;i<subButtons.length;i++)bindButton(subButtons[i]);
+
+    grid.addEventListener('click',function(e){
+      var t=e.target;
+      if(t&&t.tagName==='IMG'){
+        zoomImg.src=t.src; zoomImg.alt=t.alt; zoom.classList.add('open'); zoom.setAttribute('aria-hidden','false');
+      }
+    });
+    function closeZoom(){zoom.classList.remove('open');zoom.setAttribute('aria-hidden','true');zoomImg.removeAttribute('src');}
+    document.getElementById('zoom-close').addEventListener('click',closeZoom);
+    zoom.addEventListener('click',function(e){if(e.target===zoom)closeZoom();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
+
+    render();
+  }());
   </script>
 </body>
 </html>
