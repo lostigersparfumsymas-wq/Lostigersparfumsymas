@@ -107,7 +107,7 @@
     <img id="zoom-img" alt="Vista ampliada del producto">
   </div>
 
-  <script src="./catalog-data.js?v=20260929"></script>
+  <script src="./catalog-data.js?v=20260929-0915"></script>
   <script>
   (function(){
     'use strict';
@@ -129,6 +129,7 @@
       if(!path)return '';
       path=String(path);
       if(/^https?:\/\//i.test(path))return path;
+      if(/^\.\.?\//.test(path)||path.charAt(0)==='/')return path;
       return STORAGE+path.split('/').map(encodeURIComponent).join('/');
     }
     function whatsapp(name){return 'https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent('Hola Tigers Boutique, quiero información sobre '+name+'.');}
